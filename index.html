@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vault++</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav id="navBar" class="glass fixed top-0 left-0 right-0 z-40 p-4 shadow-lg">
+      <div class="max-w-7xl mx-auto flex justify-between items-center">
+        <div class="text-xl font-bold nav-brand flex items-center gap-2">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+          </svg>
+          Vault++
+        </div>
+        <div class="flex gap-4 items-center">
+          <button onclick="showPage('landing')" class="nav-link px-4 py-2 rounded-lg transition-colors">
+            Home
+          </button>
+          <button onclick="showPage('about')" class="nav-link px-4 py-2 rounded-lg transition-colors">
+            About
+          </button>
+          <button onclick="showPage('login')" class="nav-link px-4 py-2 rounded-lg transition-colors" id="loginNavBtn">
+            Login
+          </button>
+          <button onclick="toggleTheme()" class="theme-toggle px-3 py-2 rounded-lg transition-colors" id="themeToggle" title="Toggle theme">
+            <svg id="themeIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+            </svg>
+          </button>
+          <button onclick="showPage('login')" class="begin-btn px-6 py-2 rounded-lg font-bold transition-all">
+            Begin
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Landing Page -->
+    <div id="landingPage" class="page-section min-h-screen flex items-center justify-center p-6 pt-24">
+      <div class="max-w-6xl mx-auto text-center">
+        <div class="glass rounded-3xl shadow-2xl p-12 mb-8">
+          <h1 class="text-6xl font-bold mb-6 landing-title animate-gradient">
+            Secure Document Vault
+          </h1>
+          <p class="text-xl landing-subtitle mb-8 max-w-2xl mx-auto">
+            Enterprise-grade encryption for your sensitive documents. Store, encrypt, and manage your KYC documents with military-grade security.
+          </p>
+          <div class="flex gap-4 justify-center flex-wrap">
+            <button onclick="showPage('login')" class="cta-button-primary px-8 py-4 text-lg font-bold rounded-xl">
+              Get Started
+            </button>
+            <button onclick="showPage('about')" class="cta-button-secondary px-8 py-4 text-lg font-bold rounded-xl">
+              Learn More
+            </button>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6 mt-12">
+          <div class="glass rounded-2xl p-8 hover:transform hover:scale-105 transition-transform">
+            <div class="mb-4 icon-container">
+              <svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="color: var(--forest-green);">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold mb-3 feature-title">Military-Grade Encryption</h3>
+            <p class="feature-text">AES-256-GCM encryption ensures your documents are protected with the highest security standards.</p>
+          </div>
+          <div class="glass rounded-2xl p-8 hover:transform hover:scale-105 transition-transform">
+            <div class="mb-4 icon-container">
+              <svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="color: var(--forest-green);">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold mb-3 feature-title">Lightning Fast</h3>
+            <p class="feature-text">Upload and encrypt your documents in seconds. No delays, no waiting, just instant security.</p>
+          </div>
+          <div class="glass rounded-2xl p-8 hover:transform hover:scale-105 transition-transform">
+            <div class="mb-4 icon-container">
+              <svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="color: var(--forest-green);">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold mb-3 feature-title">Zero-Knowledge</h3>
+            <p class="feature-text">We never see your documents or keys. Your data, your control, your privacy.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- About Page -->
+    <div id="aboutPage" class="page-section hidden min-h-screen flex items-center justify-center p-6 pt-24">
+      <div class="max-w-4xl mx-auto glass rounded-3xl shadow-2xl p-12">
+        <h1 class="text-5xl font-bold mb-8 text-center landing-title">
+          About Vault++
+        </h1>
+        
+        <div class="space-y-8 about-text">
+          <section>
+            <h2 class="text-2xl font-bold mb-4 section-title">Our Mission</h2>
+            <p class="text-lg leading-relaxed">
+              Vault++ is designed to provide enterprise-level document security for individuals and organizations. 
+              We believe that your sensitive documents deserve the highest level of protection, which is why we've built 
+              a system that combines cutting-edge encryption with intuitive user experience.
+            </p>
+          </section>
+
+          <section>
+            <h2 class="text-2xl font-bold mb-4 section-title">How It Works</h2>
+            <div class="space-y-4">
+              <div class="flex items-start gap-4">
+                <div class="flex-shrink-0 w-10 h-10 step-number rounded-full flex items-center justify-center font-bold">1</div>
+                <div>
+                  <h3 class="font-bold mb-1">Upload Your Document</h3>
+                  <p>Simply upload your PDF document through our secure interface.</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-4">
+                <div class="flex-shrink-0 w-10 h-10 step-number rounded-full flex items-center justify-center font-bold">2</div>
+                <div>
+                  <h3 class="font-bold mb-1">Set Your PIN</h3>
+                  <p>Choose a secure 6-digit PIN that will be used to encrypt your document.</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-4">
+                <div class="flex-shrink-0 w-10 h-10 step-number rounded-full flex items-center justify-center font-bold">3</div>
+                <div>
+                  <h3 class="font-bold mb-1">Automatic Encryption</h3>
+                  <p>Your document is encrypted using AES-256-GCM encryption before storage.</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-4">
+                <div class="flex-shrink-0 w-10 h-10 step-number rounded-full flex items-center justify-center font-bold">4</div>
+                <div>
+                  <h3 class="font-bold mb-1">Secure Storage</h3>
+                  <p>Your encrypted document is stored safely in our secure vault.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 class="text-2xl font-bold mb-4 section-title">Security Features</h2>
+            <ul class="list-disc list-inside space-y-2 text-lg">
+              <li><strong>AES-256-GCM Encryption:</strong> Industry-standard encryption algorithm</li>
+              <li><strong>PBKDF2 Key Derivation:</strong> 100,000 iterations for maximum security</li>
+              <li><strong>Zero-Knowledge Architecture:</strong> We never have access to your documents</li>
+              <li><strong>PIN Verification:</strong> Check against known data breaches using Have I Been Pwned API</li>
+              <li><strong>Auto-Expiry:</strong> Documents auto-delete after verification to prevent unauthorized access</li>
+            </ul>
+          </section>
+
+          <div class="pt-8 text-center">
+            <button onclick="showPage('login')" class="cta-button-primary px-8 py-4 text-lg font-bold rounded-xl">
+              Get Started Now
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Login/Auth Section -->
+    <div
+      id="authSection"
+      class="page-section hidden min-h-screen flex items-center justify-center p-6 pt-24"
+    >
+      <div class="max-w-md w-full glass rounded-3xl shadow-2xl p-10">
+        <div class="text-center mb-8">
+          <div class="mb-4 flex justify-center">
+            <svg class="w-20 h-20" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="color: var(--forest-green);">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+            </svg>
+          </div>
+          <h2 class="text-4xl font-bold mb-3 landing-title">
+            Welcome Back
+          </h2>
+          <p class="landing-subtitle">Sign in to access your secure vault</p>
+        </div>
+        
+        <div class="space-y-5">
+          <div>
+            <label class="block text-sm font-semibold mb-2" style="color: var(--text-secondary);">Email Address</label>
+            <input
+              type="email"
+              id="email"
+              placeholder="Enter your email"
+              class="auth-input w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-semibold mb-2" style="color: var(--text-secondary);">Password</label>
+            <input
+              type="password"
+              id="password"
+              placeholder="Enter your password"
+              class="auth-input w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+            />
+          </div>
+          <button
+            onclick="handleAuth('login')"
+            class="auth-button-primary w-full py-4 rounded-xl font-bold text-lg shadow-lg"
+          >
+            Sign In
+          </button>
+          <div class="relative my-6">
+            <div class="absolute inset-0 flex items-center">
+              <div class="w-full border-t border-gray-300"></div>
+            </div>
+            <div class="relative flex justify-center text-sm">
+              <span class="px-4" style="background: var(--bg-secondary); color: var(--text-muted);">New to Secure Vault?</span>
+            </div>
+          </div>
+          <button
+            onclick="handleAuth('signup')"
+            class="auth-button-secondary w-full py-4 rounded-xl font-bold text-lg"
+          >
+            Create Account
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vault Section -->
+    <div
+      id="vaultSection"
+      class="page-section hidden min-h-screen p-6 pt-24 vault-background"
+    >
+      <div class="max-w-4xl mx-auto glass rounded-2xl shadow-xl p-8">
+        <div class="flex justify-between items-center mb-8">
+          <div>
+            <h1 class="text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">Secure Vault</h1>
+            <p id="userDisplay" class="text-sm text-slate-500 font-mono mt-1"></p>
+          </div>
+          <button onclick="logout()" class="logout-btn text-sm font-bold px-4 py-2 rounded-lg">
+            LOGOUT
+          </button>
+        </div>
+
+        <div class="space-y-6">
+          <div id="uploadArea" class="upload-area pb-6">
+            <label class="block text-lg font-bold mb-4" style="color: var(--text-primary);">
+              Upload KYC Document (PDF)
+            </label>
+            <input
+              type="file"
+              id="fileInput"
+              accept="application/pdf"
+              class="block w-full text-sm text-slate-500 mb-4 file-input-custom"
+            />
+            <input
+              type="password"
+              id="pinInput"
+              placeholder="Enter 6-Digit Secret PIN"
+              maxlength="6"
+              class="pin-input w-full px-4 py-4 rounded-xl border-2 text-center text-2xl tracking-widest mb-4"
+            />
+            <button
+              onclick="startEncryption()"
+              class="encrypt-btn w-full py-4 rounded-xl font-bold text-lg shadow-lg flex items-center justify-center gap-2"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+              </svg>
+              Encrypt & Upload to Vault
+            </button>
+          </div>
+
+          <div>
+            <h2 class="section-header text-sm font-bold text-slate-600 uppercase mb-4 tracking-widest">
+              Personal Vault
+            </h2>
+            <div id="fileList" class="space-y-3"></div>
+          </div>
+
+          <div id="adminPanel" class="admin-panel mt-8 pt-6 hidden">
+            <h2 class="text-sm font-bold text-red-500 uppercase mb-4 tracking-widest">
+              Officer: Pending Verifications
+            </h2>
+            <div id="adminFileList" class="space-y-3"></div>
+          </div>
+        </div>
+
+        <div id="log" class="log-area mt-6 p-4 rounded-lg hidden">
+          <p
+            id="statusText"
+            class="text-sm font-mono text-slate-600 break-all"
+          ></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PDF Modal -->
+    <div
+      id="pdfModal"
+      class="fixed inset-0 bg-black/90 hidden z-50 flex flex-col items-center justify-center p-4"
+    >
+      <div
+        class="w-full max-w-4xl bg-white rounded-t-xl p-4 flex justify-between items-center shadow-2xl"
+      >
+        <span class="text-sm font-bold uppercase text-slate-600"
+          >Secure Viewer (Local RAM)</span
+        >
+        <span id="modalTimer" class="text-sm font-bold text-red-600 font-mono"></span>
+      </div>
+      <div class="w-full max-w-4xl h-[80vh] bg-slate-200 relative">
+        <iframe id="pdfViewer" class="w-full h-full border-none"></iframe>
+      </div>
+      <button
+        onclick="closeViewer()"
+        class="modal-close-btn mt-4 px-8 py-3 font-bold rounded-lg"
+      >
+        Close & Wipe
+      </button>
+    </div>
+
+    <script src="index.js"></script>
+  </body>
+</html>
