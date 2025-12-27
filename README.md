@@ -3,6 +3,7 @@
 **Project Category:** TRACK 4: SECURE DOCUMENT VAULT
 
 **Github URL:** [https://github.com/rishik-karthik/valit](https://github.com/rishik-karthik/valit)
+**Live Demo:** https://vault-one-xi.vercel.app/
 
 ## 1. The Problem Statement
 
@@ -89,3 +90,4 @@ SUPABASE_ANON_KEY=your_anon_key
 ---
 
 **Disclaimer:** This project was built for the Finnovate "Zero-Knowledge KYC" challenge to demonstrate secure architectural patterns in Fintech.
+
